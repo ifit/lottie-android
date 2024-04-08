@@ -1,6 +1,24 @@
 import com.vanniktech.maven.publish.SonatypeHost
 import static de.fayard.refreshVersions.core.Versions.versionFor
 
+buildscript{
+  ext {
+    val_build_plugin_version = "3.2.1"
+  }
+  repositories {
+    maven {
+      url "https://reposilite.svc.ifit.com/reposilite"
+      credentials {
+        username valinor_maven_username
+        password valinor_maven_password
+      }
+    }
+  }
+  dependencies {
+    classpath "com.ifit:valinor-build-plugin:$val_build_plugin_version"
+  }
+}
+
 plugins {
   id 'com.android.library'
   id 'org.jetbrains.kotlin.android'
@@ -42,15 +60,6 @@ publishing {
       artifactId 'lottie-compose'
       version '6.4.1-SNAPSHOT'
       artifact("$buildDir/outputs/aar/lottie-compose-release.aar")
-    }
-  }
-  repositories {
-    maven {
-      url "https://reposilite.svc.ifit.com/reposilite"
-      credentials {
-        username valinor_maven_username
-        password valinor_maven_password
-      }
     }
   }
 }
